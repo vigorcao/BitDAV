@@ -68,8 +68,6 @@ def main():
                                             # (r'/\*join_approve', chain.JoinApproveHandler),
                                             # (r'/\*get_nodes', TestHandler),
 
-                                            (r'/\*list_folders', fs.ListFoldersHandler),
-                                            (r'/\*list_files', fs.ListFilesHandler),
                                             (r'/\*get_folders', fs.GetFoldersHandler),
                                             (r'/\*get_folder', fs.GetFolderHandler),
                                             (r'/\*add_folder', fs.AddFolderHandler),
@@ -84,10 +82,15 @@ def main():
                                             (r'/\*get_storage', fs.GetStorageHandler),
 
                                             (r'/\*test', chain.TestHandler),
+
+                                            (r'/\*upload_file', fs.UploadFileHandler),
+                                            (r'/', fs.ListFoldersHandler),
+                                            (r'/(.*?)/(.*)', fs.GetFileHandler),
+                                            (r'/(.*)', fs.ListFilesHandler),
             # (r'.*', tornado.web.FallbackHandler, dict(fallback=tornado.wsgi.WSGIContainer(wsgi_app))),
         ], **settings)
 
-    server = tornado.httpserver.HTTPServer(application)
+    server = tornado.httpserver.HTTPServer(application, max_buffer_size=2**20*2000)
     server.listen(chain.current_port)
     tornado.ioloop.IOLoop.instance().start()
 
