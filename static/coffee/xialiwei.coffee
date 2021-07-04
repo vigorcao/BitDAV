@@ -42,6 +42,39 @@ $ ->
         k = $(this).attr("data-k")
         v = $(this).attr("data-v")
         $(".current_folder_name").text k
+        load_folder(k,v)
+    load_folder = (folder_name=null,folder_meta_hash=null)->
+        $(".card_content_list").empty()
+        if folder_name == null or folder_meta_hash == null
+            return
+        url = "/*get_meta"
+        $.ajax
+            url:url
+            data:
+                folder_meta_hash:folder_meta_hash
+            dataType: 'json'
+            type: 'GET'
+            success: (data) ->
+                console.log data
+                if data == "no storage config"
+                    return
+                if data.items?
+                    for k,v of data.items
+                        k_list = k.split(".")
+                        pre_html = ""
+                        file_type = k_list[k_list.length-1]
+                        if file_type.toLocaleLowerCase() in ["jpg","jpeg","gif","png","webp","bmp"]
+                            pre_html = """
+                            <img src="/#{folder_name}/#{k}" style="width:100px;">
+                            """
+                        $(".card_content_list").append """
+                        <div class="">
+                            <a href="/#{folder_name}/#{k}">/#{folder_name}/#{k}</a>
+                            #{pre_html}
+                        </div>
+                        """
+            error: (data) ->
+                console.log data
     load_folder_list = ()->
         $(".card_folder_list").empty()
         url = "/*get_folders"

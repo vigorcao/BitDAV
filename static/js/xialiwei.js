@@ -9,7 +9,7 @@
   Hs = root.Hs;
 
   $(function() {
-    var load_folder_list, load_ready_run;
+    var load_folder, load_folder_list, load_ready_run;
     console.log("Hello, I am xialiwei.");
     $("body").on("click", ".add_folder", function(evt) {
       var folder_name;
@@ -73,8 +73,56 @@
       var k, v;
       k = $(this).attr("data-k");
       v = $(this).attr("data-v");
-      return $(".current_folder_name").text(k);
+      $(".current_folder_name").text(k);
+      return load_folder(k, v);
     });
+    load_folder = function(folder_name, folder_meta_hash) {
+      var url;
+      if (folder_name == null) {
+        folder_name = null;
+      }
+      if (folder_meta_hash == null) {
+        folder_meta_hash = null;
+      }
+      $(".card_content_list").empty();
+      if (folder_name === null || folder_meta_hash === null) {
+        return;
+      }
+      url = "/*get_meta";
+      return $.ajax({
+        url: url,
+        data: {
+          folder_meta_hash: folder_meta_hash
+        },
+        dataType: 'json',
+        type: 'GET',
+        success: function(data) {
+          var file_type, k, k_list, pre_html, ref, ref1, results, v;
+          console.log(data);
+          if (data === "no storage config") {
+            return;
+          }
+          if (data.items != null) {
+            ref = data.items;
+            results = [];
+            for (k in ref) {
+              v = ref[k];
+              k_list = k.split(".");
+              pre_html = "";
+              file_type = k_list[k_list.length - 1];
+              if ((ref1 = file_type.toLocaleLowerCase()) === "jpg" || ref1 === "jpeg" || ref1 === "gif" || ref1 === "png" || ref1 === "webp" || ref1 === "bmp") {
+                pre_html = "<img src=\"/" + folder_name + "/" + k + "\" style=\"width:100px;\">";
+              }
+              results.push($(".card_content_list").append("<div class=\"\">\n    <a href=\"/" + folder_name + "/" + k + "\">/" + folder_name + "/" + k + "</a>\n    " + pre_html + "\n</div>"));
+            }
+            return results;
+          }
+        },
+        error: function(data) {
+          return console.log(data);
+        }
+      });
+    };
     load_folder_list = function() {
       var url;
       $(".card_folder_list").empty();
