@@ -65,12 +65,15 @@ $ ->
                         file_type = k_list[k_list.length-1]
                         if file_type.toLocaleLowerCase() in ["jpg","jpeg","gif","png","webp","bmp"]
                             pre_html = """
-                            <img src="/#{folder_name}/#{k}" style="width:100px;">
+                            <img class="card_content_list_item_img" src="/#{folder_name}/#{k}">
                             """
                         $(".card_content_list").append """
-                        <div class="">
-                            <a href="/#{folder_name}/#{k}">/#{folder_name}/#{k}</a>
+                        <div class="card_content_list_item">
                             #{pre_html}
+                            <div class="card_content_list_item_tools">
+                                <a href="/#{folder_name}/#{k}">下载</a>
+                            </div>
+                            
                         </div>
                         """
             error: (data) ->
