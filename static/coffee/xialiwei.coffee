@@ -73,7 +73,6 @@ $ ->
                             <div class="card_content_list_item_tools">
                                 <a href="/#{folder_name}/#{k}">下载</a>
                             </div>
-                            
                         </div>
                         """
             error: (data) ->
