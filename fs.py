@@ -283,8 +283,11 @@ class GetFoldersHandler(tornado.web.RequestHandler):
         result = {"folders": {}}
         for folder_name, folder_meta_hash in folders.items():
             # folder_meta_hash = folders.get(folder_name, '')
-            if folder_name and folder_meta_hash:
-                result["folders"][folder_name] = folder_meta_hash
+            if folder_name:
+                if folder_meta_hash:
+                    result["folders"][folder_name] = folder_meta_hash
+                else:
+                    result["folders"][folder_name] = ""
         self.finish(result)
 
 
