@@ -113,7 +113,7 @@
               if ((ref1 = file_type.toLocaleLowerCase()) === "jpg" || ref1 === "jpeg" || ref1 === "gif" || ref1 === "png" || ref1 === "webp" || ref1 === "bmp") {
                 pre_html = "<img class=\"card_content_list_item_img\" src=\"/" + folder_name + "/" + k + "\">";
               }
-              results.push($(".card_content_list").append("<div class=\"card_content_list_item\">\n    " + pre_html + "\n    <div class=\"card_content_list_item_tools\">\n        <a href=\"/" + folder_name + "/" + k + "\">下载</a>\n    </div>\n    \n</div>"));
+              results.push($(".card_content_list").append("<div class=\"card_content_list_item\">\n    " + pre_html + "\n    <div class=\"card_content_list_item_tools\">\n        <a href=\"/" + folder_name + "/" + k + "\">下载</a>\n    </div>\n</div>"));
             }
             return results;
           }
