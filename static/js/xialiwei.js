@@ -97,7 +97,7 @@
         dataType: 'json',
         type: 'GET',
         success: function(data) {
-          var file_type, k, k_list, pre_html, ref, ref1, results, v;
+          var file_type, k, k_list, pre_html, ref, ref1, ref2, results, v;
           console.log(data);
           if (data === "no storage config") {
             return;
@@ -112,6 +112,8 @@
               file_type = k_list[k_list.length - 1];
               if ((ref1 = file_type.toLocaleLowerCase()) === "jpg" || ref1 === "jpeg" || ref1 === "gif" || ref1 === "png" || ref1 === "webp" || ref1 === "bmp") {
                 pre_html = "<img class=\"card_content_list_item_img\" src=\"/" + folder_name + "/" + k + "\">";
+              } else if ((ref2 = file_type.toLocaleLowerCase()) === "mov" || ref2 === "m4a" || ref2 === "mp4") {
+                pre_html = "<video class=\"card_content_list_item_img\" controls src=\"/" + folder_name + "/" + k + "\">";
               }
               results.push($(".card_content_list").append("<div class=\"card_content_list_item\">\n    " + pre_html + "\n    <div class=\"card_content_list_item_tools\">\n        <a href=\"/" + folder_name + "/" + k + "\">下载</a>\n    </div>\n</div>"));
             }

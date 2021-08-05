@@ -67,6 +67,10 @@ $ ->
                             pre_html = """
                             <img class="card_content_list_item_img" src="/#{folder_name}/#{k}">
                             """
+                        else if file_type.toLocaleLowerCase() in ["mov","m4a","mp4"]
+                            pre_html = """
+                            <video class="card_content_list_item_img" controls src="/#{folder_name}/#{k}">
+                            """
                         $(".card_content_list").append """
                         <div class="card_content_list_item">
                             #{pre_html}
