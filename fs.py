@@ -258,10 +258,11 @@ class UploadFileHandler(tornado.web.RequestHandler):
         with open(os.path.join(storage_path, 'meta', folder_meta_hash), 'wb') as f:
             f.write(folder_meta_json.encode('utf8'))
         print('folder_meta_hash', folder_meta_hash, len(folder_meta_json))
-
+        self.finish({"info":"ok"})
         block_data = {'type': 'folder', 'name': folder_name, 'meta_hash': folder_meta_hash, 'timestamp': time.time()}
         block = chain.update_chain(block_data)
         chain.broadcast_block(list(block))
+        
 
     # def initialize(self):
     #     self.bytes_read = 0

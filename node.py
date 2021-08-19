@@ -88,7 +88,7 @@ def main():
 
                                             (r'/\*upload_file', fs.UploadFileHandler),
                                             (r'/', fs.ListFoldersHandler),
-                                            (r'/xialiwei',xialiwei.HomeHandler),
+                                            (r'/\*xialiwei',xialiwei.HomeHandler),
                                             (r'/(.*?)/(.*)', fs.GetFileHandler),
                                             (r'/(.*)', fs.ListFilesHandler),
             # (r'.*', tornado.web.FallbackHandler, dict(fallback=tornado.wsgi.WSGIContainer(wsgi_app))),

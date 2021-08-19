@@ -9,8 +9,40 @@
   Hs = root.Hs;
 
   $(function() {
-    var load_folder, load_folder_list, load_ready_run;
+    var handleFileSelect, load_folder, load_folder_list, load_folder_meta, load_ready_run;
     console.log("Hello, I am xialiwei.");
+    handleFileSelect = function(evt) {
+      var formData, target_add_folder_dir, target_add_folder_file, target_add_folder_name, url;
+      target_add_folder_file = $(".target_add_folder_file");
+      target_add_folder_name = $(".target_add_folder_name").val();
+      target_add_folder_dir = $(".target_add_folder_dir").val();
+      formData = new FormData();
+      formData.append("file", target_add_folder_file[0].files[0]);
+      formData.append("folder_name", target_add_folder_name);
+      formData.append("dir_name", target_add_folder_dir);
+      url = "/*upload_file";
+      return $.ajax({
+        url: url,
+        data: formData,
+        dataType: 'json',
+        type: 'POST',
+        async: false,
+        processData: false,
+        contentType: false,
+        success: function(data) {
+          console.log(data);
+          load_folder(target_add_folder_name, null);
+          return $(".target_add_folder_file")[0].outerHTML = $(".target_add_folder_file")[0].outerHTML;
+        },
+        error: function(data) {
+          return console.log(data);
+        }
+      });
+    };
+    $("body").on("change", ".target_add_folder_file", handleFileSelect);
+    $("body").on("click", ".add_folder_file", function(evt) {
+      return $(".target_add_folder_file").click();
+    });
     $("body").on("click", ".add_folder", function(evt) {
       var folder_name;
       folder_name = $(".add_folder_name").val();
@@ -74,6 +106,10 @@
       k = $(this).attr("data-k");
       v = $(this).attr("data-v");
       $(".current_folder_name").text(k);
+      $(".add_folder_file").removeClass("hide");
+      $(".target_add_folder_file")[0].outerHTML = $(".target_add_folder_file")[0].outerHTML;
+      $(".target_add_folder_name").val(k);
+      $(".target_add_folder_dir").val("/");
       return load_folder(k, v);
     });
     load_folder = function(folder_name, folder_meta_hash) {
@@ -84,15 +120,46 @@
       if (folder_meta_hash == null) {
         folder_meta_hash = null;
       }
+      if (folder_name === null || folder_name === "") {
+        return;
+      }
+      url = "/*get_folder";
+      return $.ajax({
+        url: url,
+        data: {
+          folder_name: folder_name,
+          t: (new Date()).getTime()
+        },
+        dataType: 'json',
+        type: 'GET',
+        success: function(data) {
+          console.log(data);
+          folder_meta_hash = data.meta_hash;
+          return load_folder_meta(folder_name, folder_meta_hash);
+        },
+        error: function(data) {
+          return console.log(data);
+        }
+      });
+    };
+    load_folder_meta = function(folder_name, folder_meta_hash) {
+      var url;
+      if (folder_name == null) {
+        folder_name = null;
+      }
+      if (folder_meta_hash == null) {
+        folder_meta_hash = null;
+      }
       $(".card_content_list").empty();
-      if (folder_name === null || folder_meta_hash === null) {
+      if (folder_name === null || folder_meta_hash === null || folder_name === "" || folder_meta_hash === "") {
         return;
       }
       url = "/*get_meta";
       return $.ajax({
         url: url,
         data: {
-          folder_meta_hash: folder_meta_hash
+          folder_meta_hash: folder_meta_hash,
+          t: (new Date()).getTime()
         },
         dataType: 'json',
         type: 'GET',
