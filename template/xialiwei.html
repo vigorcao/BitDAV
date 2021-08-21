@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>BitDav From EcoPow</title>
+    <script type="text/javascript" src="/static/js/jquery-1.12.4.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/css/xialiwei.css?t={{ handler.time_now }}">
+    <style type="text/css">
+        .card{
+            margin: 10px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.16);
+            padding: 20px;
+        }
+        .card_main{
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .card_folder_list_area{
+            min-width: 200px;
+            flex: 1;
+            /*box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.16);*/
+        }
+        .card_content_list_area{
+            flex: 5;
+            /*box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.16);*/
+        }
+        .card_folder_list_title{
+            text-align: center;
+            padding: 10px 0px;
+            width: 100%;
+        }
+        .card_folder_list_item{
+            padding: 5px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+        }
+        .span_btn{
+            color: #03a9f4;
+            cursor: pointer;
+        }
+        .span_btn_bg{
+            border-radius: 4px;
+            background-color: #03a9f4;
+            color: white;
+            padding: 3px 6px;
+            font-size: 12px;
+            margin: 0px 5px;
+            cursor: pointer;
+        }
+        .add_folder_name{
+            width: 120px;
+            border-radius: 4px;
+            padding: 3px 6px;
+            font-size: 12px;
+            margin: 0px 5px;
+            border: 0;
+            box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.26);
+        }
+        .card_content_list{
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .card_content_list_item{
+            border-radius: 4px;
+            box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.26);
+            margin: 5px;
+            overflow: hidden;
+            width: 120px;
+        }
+        .card_content_list_item_img{
+            width: 100%;
+            height: 120px;
+            object-fit:cover;
+        }
+        .card_content_list_item_tools>a{
+            font-size: 12px;
+            color: #bfbfbf;
+            margin: 5px;
+        }
+        .hide{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="card card_tools">
+        <button class="add_storage">添加硬盘存储位置</button>
+    </div>
+    <div class="card card_main">
+        <div class="card_folder_list_area">
+            <div class="card_folder_list_title">文件夹列表</div>
+            <div><input class="add_folder_name" placeholder="搜索·输入文件夹"><span class="add_folder span_btn span_btn_bg">创建</span></div>
+            <div class="card_folder_list"></div>
+        </div>
+        <div class="card_content_list_area">
+            <div class="card_content_list_title">当前文件夹:
+                <span class="current_folder_name">选择文件夹，或点击
+                    <span class="add_folder_new span_btn">创建</span>
+                </span>
+                <span class="add_folder_file span_btn hide">添加文件</span>
+                <div class="add_folder_file_tools hide">
+                    <input class="target_add_folder_file" type="file" name="">
+                    <input class="target_add_folder_name" type="text" name="">
+                    <input class="target_add_folder_dir" type="text" name="">
+                </div>
+            </div>
+            <div class="card_content_list"></div>
+        </div>
+    </div>
+<script type="text/javascript"></script>
+<script type="text/javascript" src="/static/js/xialiwei.js?t={{ handler.time_now }}"></script>
+</body>
+</html>

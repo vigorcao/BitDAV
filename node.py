@@ -34,7 +34,7 @@ import tornado.wsgi
 
 import chain
 import fs
-
+import xialiwei
 
 def main():
     # provider = FilesystemProvider('.')
@@ -53,7 +53,10 @@ def main():
     #     # "port": 8000
     # }
     # wsgi_app = wsgidav_app.WsgiDAVApp(config)
-    settings = {"debug": True}
+    settings = {
+        "static_path": os.path.join(os.path.dirname(__file__),"static"),
+        "debug": True
+    }
     application = tornado.web.Application([ (r'/\*gossip', chain.GossipHandler),
                                             (r'/\*hello', chain.HelloHandler),
                                             (r'/\*ping', chain.PingHandler),
@@ -85,6 +88,7 @@ def main():
 
                                             (r'/\*upload_file', fs.UploadFileHandler),
                                             (r'/', fs.ListFoldersHandler),
+                                            (r'/\*xialiwei',xialiwei.HomeHandler),
                                             (r'/(.*?)/(.*)', fs.GetFileHandler),
                                             (r'/(.*)', fs.ListFilesHandler),
             # (r'.*', tornado.web.FallbackHandler, dict(fallback=tornado.wsgi.WSGIContainer(wsgi_app))),
