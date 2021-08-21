@@ -15,4 +15,7 @@ Later, if IP Address and Port is not change, simpliy run:
 
 One node invites another node.
 
+# vigorcao test
+I'm coming in. 
+
 
